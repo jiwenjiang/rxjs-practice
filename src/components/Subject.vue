@@ -8,12 +8,18 @@
           <button id="status" @click="subject">Subject </button>
           类似Observable，一个特殊的可观察对象。<br>
           <button style="visibility: hidden">status</button>&nbsp;Subjects 是将任意 Observable 执行共享给多个观察者的唯一方式。<br>
-          <button style="visibility: hidden">status</button>&nbsp;Observable 会在同步异步并存的情况下返回多值。<br>
-          <button style="visibility: hidden">status</button>&nbsp;Observable 与函数的相同点在于，二者都是惰性运算，在调用的节点是才运行。
         </li>
         <li>
-          <button id="Subscription" @click="subscription">Subscription</button>
-          Subscription 本身有一个取消订阅的执行方法，并可以添加其余订阅到自己身上一并取消订阅。
+          <button id="Subscription" @click="BehaviorSubject">BehaviorSubject</button>
+          BehaviorSubject 保存当前subject的最新值，在subscribe时直接运行传入的初始值。
+        </li>
+        <li>
+          <button id="ReplaySubject" @click="ReplaySubject">ReplaySubject</button>
+          ReplaySubject 保存指定数目，指定时间内当前subject的最新值，不会自启动。
+        </li>
+        <li>
+          <button id="AsyncSubject" @click="AsyncSubject">AsyncSubject</button>
+          AsyncSubject 当observeble 执行完成时，发送最后的值给complete，输出单值。
         </li>
         <br>
       </ul>
@@ -51,19 +57,56 @@
         console.log(observable)
         observable.subscribe(subject)// 你可以提供一个 Subject 进行订阅
       },
-      subscription () {
-        let observable1 = Rx.Observable.interval(400)
-        let observable2 = Rx.Observable.interval(300)
+      BehaviorSubject () {
+        let subject = new Rx.BehaviorSubject(0) // 0是初始值
 
-        let subscription = observable1.subscribe(x => console.log('first: ' + x))
-        let childSubscription = observable2.subscribe(x => console.log('second: ' + x))
+        subject.subscribe({
+          next: (v) => console.log('observerA: ' + v)
+        })
 
-        subscription.add(childSubscription)
+        subject.next(1)
+        subject.next(2)
 
-        setTimeout(() => {
-          // subscription 和 childSubscription 都会取消订阅
-          subscription.unsubscribe()
-        }, 1000)
+        subject.subscribe({
+          next: (v) => console.log('observerB: ' + v)
+        })
+
+        subject.next(3)
+      },
+      ReplaySubject () {
+        let subject = new Rx.BehaviorSubject(0) // 0是初始值
+
+        subject.subscribe({
+          next: (v) => console.log('observerA: ' + v)
+        })
+
+        subject.next(1)
+        subject.next(2)
+
+        subject.subscribe({
+          next: (v) => console.log('observerB: ' + v)
+        })
+
+        subject.next(3)
+      },
+      AsyncSubject () {
+        let subject = new Rx.AsyncSubject()
+
+        subject.subscribe({
+          next: (v) => console.log('observerA: ' + v)
+        })
+
+        subject.next(1)
+        subject.next(2)
+        subject.next(3)
+        subject.next(4)
+
+        subject.subscribe({
+          next: (v) => console.log('observerB: ' + v)
+        })
+
+        subject.next(5)
+        subject.complete()
       }
     }
   }
