@@ -37,7 +37,7 @@
     name: 'Subject',
     data () {
       return {
-        msg: 'Welcome to Practicing Observable of Rxjs'
+        msg: 'Welcome to Practicing Subject of Rxjs'
       }
     },
     mounted () {
