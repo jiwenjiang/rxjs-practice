@@ -5,6 +5,7 @@ import TimerEvent from '@/components/TimerEvent'
 import Observable from '@/components/Observable'
 import Subject from '@/components/Subject'
 import Operators from '@/components/Operators'
+import Transformation from '@/components/Transformation'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/Operators',
       name: 'Operators',
       component: Operators
+    },
+    {
+      path: '/Transformation',
+      name: 'Transformation',
+      component: Transformation
     }
   ]
 })
