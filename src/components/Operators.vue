@@ -98,7 +98,7 @@
             ? Rx.Observable.throw('Thirteens are bad')
             : Rx.Observable.of('a', 'b', 'c')
         )
-        result.subscribe(x => console.log(x), e => console.error(e))
+        result.subscribe(x => console.trace(x), e => console.error(e))
       }
     }
   }
