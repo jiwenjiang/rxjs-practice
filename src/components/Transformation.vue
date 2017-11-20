@@ -17,16 +17,12 @@
           将过往的值收集到数组中，并周期性地发出这些数组。
         </li>
         <li>
-          <button id="of" @click="of">of </button>
-          接收一组arguments的普通参数，依次执行。
+          <button id="concatMap" @click="concatMap">concatMap </button>
+          将源值投射为一个合并到输出 Observable 的 Observable,以串行的方式等待前一个完成再合并下一个 Observable。
         </li>
         <li>
-          <button id="range" @click="range">range </button>
-          生成一组数字序列，（start, length）
-        </li>
-        <li>
-          <button id="throw" @click="tothrow">throw </button>
-          抛出异常，终止sub
+          <button id="exhaustMap" @click="exhaustMap">exhaustMap </button>
+          将每个源值投射成 Observable，只有当前一个投射的 Observable 已经完成， 这个 Observable 才会被合并到输出 Observable 中。
         </li>
         <br>
       </ul>
@@ -65,22 +61,15 @@
         let buffered = clicks.bufferTime(2000, 5000)
         buffered.subscribe(x => console.log(x))
       },
-      of () {
-        let numbers = Rx.Observable.of(10, 20, 30)
-        numbers.subscribe(x => console.log(x))
+      concatMap () {
+        let clicks = Rx.Observable.fromEvent(document.getElementById('concatMap'), 'click')
+        let result = clicks.concatMap(ev => Rx.Observable.interval(1000).take(4))
+        result.subscribe(x => console.log(x))
       },
-      range () {
-        let numbers = Rx.Observable.range(1, 10)
-        numbers.subscribe(x => console.log(x))
-      },
-      tothrow () {
-        let interval = Rx.Observable.interval(1000)
-        let result = interval.mergeMap(x =>
-          x === 13
-            ? Rx.Observable.throw('Thirteens are bad')
-            : Rx.Observable.of('a', 'b', 'c')
-        )
-        result.subscribe(x => console.log(x), e => console.error(e))
+      exhaustMap () {
+        let clicks = Rx.Observable.fromEvent(document.getElementById('exhaustMap'), 'click')
+        let result = clicks.exhaustMap((ev) => Rx.Observable.interval(1000).take(5))
+        result.subscribe(x => console.log(x))
       }
     }
   }

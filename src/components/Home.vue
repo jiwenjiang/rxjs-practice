@@ -8,6 +8,7 @@
       <li><a ><router-link to="/Subject">Subject</router-link></a></li>
       <li><a ><router-link to="/Operators">Operators</router-link></a></li>
       <li><a ><router-link to="/Transformation">Transformation</router-link></a></li>
+      <li><a ><router-link to="/Map">Map</router-link></a></li>
       <!--<li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>-->
       <!--<li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>-->
       <!--<li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>-->

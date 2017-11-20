@@ -6,6 +6,7 @@ import Observable from '@/components/Observable'
 import Subject from '@/components/Subject'
 import Operators from '@/components/Operators'
 import Transformation from '@/components/Transformation'
+import Map from '@/components/Map'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/Transformation',
       name: 'Transformation',
       component: Transformation
+    },
+    {
+      path: '/Map',
+      name: 'Map',
+      component: Map
     }
   ]
 })
