@@ -9,14 +9,12 @@
           迭代一个数组，类数组对象，并将他们创建为observeble
         </li>
         <li>
-          <button id="fromPromise" @click="fromPromise">fromPromise </button>
-          把 ES2015 的 Promise 或者兼容 Promises/A+ 规范的 Promise 转化为 Observable。<br>
-          <button style="visibility: hidden"></button>
-          如果 Promise resolves 一个值, 输出 Observable 发出这个值然后完成。如果 Promise 被rejected, 输出 Observable输出err。
+          <button id="map" @click="map">map </button>
+          类似于 Array.prototype.map()， 它把每个源值传递给转化函数以获得相应的输出值。
         </li>
         <li>
-          <button id="of" @click="of">of </button>
-          接收一组arguments的普通参数，依次执行。
+          <button id="pairwise" @click="pairwise">pairwise </button>
+          源 Observable 的第N个发送会使输出 Observable 发出一个数组 [(N-1)th, Nth]，即前一个 值和当前值的数组，它们作为一对。（计算2点之间距离）
         </li>
         <li>
           <button id="range" @click="range">range </button>
@@ -61,13 +59,22 @@
           .flatMap((group$) => group$.reduce((acc, cur) => [...acc, cur], []))
           .subscribe(p => console.log(p))
       },
-      fromPromise () {
-        let result = Rx.Observable.fromPromise(fetch('http://myserver.com/'))
-        result.subscribe(x => console.log(x), e => console.error(e))
+      map () {
+        let clicks = Rx.Observable.fromEvent(document.getElementById('map'), 'click')
+        let positions = clicks.map(ev => ev.clientX)
+        positions.subscribe(x => console.log(x))
       },
-      of () {
-        let numbers = Rx.Observable.of(10, 20, 30)
-        numbers.subscribe(x => console.log(x))
+      pairwise () {
+        let clicks = Rx.Observable.fromEvent(document, 'click')
+        let pairs = clicks.pairwise()
+        let distance = pairs.map(pair => {
+          let x0 = pair[0].clientX
+          let y0 = pair[0].clientY
+          let x1 = pair[1].clientX
+          let y1 = pair[1].clientY
+          return Math.sqrt(Math.pow(x0 - x1, 2) + Math.pow(y0 - y1, 2))
+        })
+        distance.subscribe(x => console.log(x))
       },
       range () {
         let numbers = Rx.Observable.range(1, 10)
