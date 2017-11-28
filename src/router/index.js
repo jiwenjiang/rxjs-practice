@@ -7,6 +7,7 @@ import Subject from '@/components/Subject'
 import Operators from '@/components/Operators'
 import Transformation from '@/components/Transformation'
 import Map from '@/components/Map'
+import Filter from '@/components/filter'
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ export default new Router({
       path: '/Map',
       name: 'Map',
       component: Map
+    },
+    {
+      path: '/Filter',
+      name: 'Filter',
+      component: Filter
     }
   ]
 })

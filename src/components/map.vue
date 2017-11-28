@@ -17,12 +17,12 @@
           源 Observable 的第N个发送会使输出 Observable 发出一个数组 [(N-1)th, Nth]，即前一个 值和当前值的数组，它们作为一对。（计算2点之间距离）
         </li>
         <li>
-          <button id="range" @click="range">range </button>
-          生成一组数字序列，（start, length）
+          <button id="pluck" @click="pluck">pluck </button>
+          将每个源值(对象)映射成它指定的嵌套属性。
         </li>
         <li>
-          <button id="throw" @click="tothrow">throw </button>
-          抛出异常，终止sub
+          <button id="scan" @click="scan">scan </button>
+          累计计算值（reduce）
         </li>
         <br>
       </ul>
@@ -76,18 +76,17 @@
         })
         distance.subscribe(x => console.log(x))
       },
-      range () {
-        let numbers = Rx.Observable.range(1, 10)
-        numbers.subscribe(x => console.log(x))
+      pluck () {
+        let clicks = Rx.Observable.fromEvent(document, 'click')
+        let tagNames = clicks.pluck('target', 'tagName')
+        tagNames.subscribe(x => console.log(x))
       },
-      tothrow () {
-        let interval = Rx.Observable.interval(1000)
-        let result = interval.mergeMap(x =>
-          x === 13
-            ? Rx.Observable.throw('Thirteens are bad')
-            : Rx.Observable.of('a', 'b', 'c')
-        )
-        result.subscribe(x => console.log(x), e => console.error(e))
+      scan () {
+        let clicks = Rx.Observable.fromEvent(document, 'click')
+        let ones = clicks.mapTo(1)
+        let seed = 0
+        let count = ones.scan((acc, one) => acc + one, seed)
+        count.subscribe(x => console.log(x))
       }
     }
   }
