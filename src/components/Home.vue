@@ -3,13 +3,27 @@
     <h1>{{ msg }}</h1>
     <h2>Preview</h2>
     <ul>
-      <li><a ><router-link to="/TimerEvent">Timer Event</router-link></a></li>
-      <li><a ><router-link to="/Observable">Observable</router-link></a></li>
-      <li><a ><router-link to="/Subject">Subject</router-link></a></li>
-      <li><a ><router-link to="/Operators">Operators</router-link></a></li>
-      <li><a ><router-link to="/Transformation">Transformation</router-link></a></li>
-      <li><a ><router-link to="/Map">Map</router-link></a></li>
-      <li><a ><router-link to="/Filter">Filter</router-link></a></li>
+      <li><a>
+        <router-link to="/TimerEvent">Timer Event</router-link>
+      </a></li>
+      <li><a>
+        <router-link to="/Observable">Observable</router-link>
+      </a></li>
+      <li><a>
+        <router-link to="/Subject">Subject</router-link>
+      </a></li>
+      <li><a>
+        <router-link to="/Operators">Operators</router-link>
+      </a></li>
+      <li><a>
+        <router-link to="/Transformation">Transformation</router-link>
+      </a></li>
+      <li><a>
+        <router-link to="/Map">Map</router-link>
+      </a></li>
+      <li><a>
+        <router-link to="/Filter">Filter</router-link>
+      </a></li>
       <!--<li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>-->
       <!--<li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>-->
       <!--<li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>-->
@@ -18,16 +32,19 @@
     </ul>
     <h2>Ecosystem</h2>
     <!--<ul>-->
-      <!--<li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>-->
-      <!--<li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>-->
-      <!--<li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>-->
-      <!--<li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>-->
+    <!--<li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>-->
+    <!--<li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>-->
+    <!--<li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>-->
+    <!--<li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>-->
     <!--</ul>-->
   </div>
 </template>
 
 <script>
-//  import Rx from 'rxjs/Rx'
+  //  import Rx from 'rxjs/Rx'
+  import Base64 from 'crypto-js/enc-base64'
+  let SHA256 = require('crypto-js/sha256')
+  console.log(Base64.stringify(SHA256('Message')))
   export default {
     name: 'Home',
     data () {
