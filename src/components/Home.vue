@@ -24,6 +24,9 @@
       <li><a>
         <router-link to="/Filter">Filter</router-link>
       </a></li>
+      <li><a>
+        <router-link to="/Combine">Combine</router-link>
+      </a></li>
       <!--<li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>-->
       <!--<li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>-->
       <!--<li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>-->
@@ -42,9 +45,9 @@
 
 <script>
   //  import Rx from 'rxjs/Rx'
-  import Base64 from 'crypto-js/enc-base64'
-  let SHA256 = require('crypto-js/sha256')
-  console.log(Base64.stringify(SHA256('Message')))
+//  import Base64 from 'crypto-js/enc-base64'
+//  let SHA256 = require('crypto-js/sha256')
+//  console.log(Base64.stringify(SHA256('Message')))
   export default {
     name: 'Home',
     data () {

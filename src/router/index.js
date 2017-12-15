@@ -8,6 +8,7 @@ import Operators from '@/components/Operators'
 import Transformation from '@/components/Transformation'
 import Map from '@/components/Map'
 import Filter from '@/components/filter'
+import Combine from '@/components/combine'
 
 Vue.use(Router)
 
@@ -52,6 +53,11 @@ export default new Router({
       path: '/Filter',
       name: 'Filter',
       component: Filter
+    },
+    {
+      path: '/Combine',
+      name: 'Combine',
+      component: Combine
     }
   ]
 })
