@@ -13,15 +13,15 @@
           combineLatest 结合传入的多个 Observables。通过函数，顺序触发函数
         </li>
         <li>
-          <button id="first" @click="first">first  </button>
-          first 会发出源 Observable 中的第一个值，然后完成。
+          <button id="concat" @click="concat">concat  </button>
+          通过依次订阅输入Observable将输出Observable加入多个输入Observable，只有前一个Observable结束才会进行下一个Observable。
         </li>
         <li>
-          <button id="take" @click="take">take </button>
-          take 返回的 Observable 只发出源 Observable 最初发出的的N个值 (N = count)。
+          <button id="merge" @click="merge">merge </button>
+          合并Observable，并发输出执行，最后一个参数配置并发数。
         </li>
         <li>
-          <button id="scan" @click="scan">scan </button>
+          <button id="scan" @click="zip">zip </button>
           抛出异常，终止sub
         </li>
         <br>
@@ -59,22 +59,34 @@
         let bmi = weight.combineLatest(height, (w, h) => w / (h * h))
         bmi.subscribe(x => console.log('BMI is ' + x))
       },
-      first () {
-        let clicks = Rx.Observable.fromEvent(document, 'click')
-        let result = clicks.first(ev => ev.target.tagName === 'DIV')
+      concat () {
+        let timer = Rx.Observable.interval(1000).take(4)
+        let sequence = Rx.Observable.range(6, 10)
+        let result = timer.concat(sequence)
         result.subscribe(x => console.log(x))
       },
-      take () {
-        let interval = Rx.Observable.interval(1000)
-        let five = interval.take(5)
-        five.subscribe(x => console.log(x))
+      merge () {
+        var timer1 = Rx.Observable.interval(1000).take(10)
+        var timer2 = Rx.Observable.interval(2000).take(6)
+        var timer3 = Rx.Observable.interval(500).take(10)
+        var concurrent = 2 // 参数
+        var merged = timer1.merge(timer2, timer3, concurrent)
+        merged.subscribe(x => console.log(x))
       },
-      scan () {
-        let clicks = Rx.Observable.fromEvent(document, 'click')
-        let ones = clicks.mapTo(1)
-        let seed = 0
-        let count = ones.scan((acc, one) => acc + one, seed)
-        count.subscribe(x => console.log(x))
+      zip () {
+        let age$ = Rx.Observable.of(27, 25, 29)
+        let name$ = Rx.Observable.of('Foo', 'Bar', 'Beer')
+        let isDev$ = Rx.Observable.of(true, true, false)
+
+        Rx.Observable
+          .zip(age$,
+            name$,
+            isDev$,
+            (age, name, isDev) => ({age, name, isDev}))
+          .toArray()
+          .subscribe(x => console.log(x))
+//        console.log(aa)
+//
       }
     }
   }
